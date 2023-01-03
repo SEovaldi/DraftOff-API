@@ -70,7 +70,7 @@ function createDynamoUpdateParams(
   updateItemRequest: updateItemRequest
 ): AWS.DynamoDB.UpdateItemInput {
   const params: AWS.DynamoDB.UpdateItemInput = {
-    TableName: "my-table",
+    TableName: process.env.DYNAMODB_TABLE || "",
     Key: {
       id: { S: pathParameters.id },
     },

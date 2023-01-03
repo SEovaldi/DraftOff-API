@@ -44,7 +44,7 @@ function createDynamoDeleteParams(
   pathParameters: itemDeletePathParameters
 ): AWS.DynamoDB.DeleteItemInput {
   const params: AWS.DynamoDB.DeleteItemInput = {
-    TableName: "my-table",
+    TableName: process.env.DYNAMODB_TABLE || "",
     Key: {
       id: { S: pathParameters.id },
     },

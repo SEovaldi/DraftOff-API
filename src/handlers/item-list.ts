@@ -9,8 +9,9 @@ export async function handler(): Promise<APIGatewayProxyResult> {
   try {
     // List Items
     const params: AWS.DynamoDB.ScanInput = {
-      TableName: "my-table",
+      TableName: process.env.DYNAMODB_TABLE || "",
     };
+
     const result = await dynamo.scan(params);
 
     // return success response

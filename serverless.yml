@@ -1,4 +1,4 @@
-﻿service: my-service
+﻿service: DraftOff-API
 
 plugins:
   - serverless-dynamodb-local
@@ -7,10 +7,12 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs16.x
   region: us-east-1
   stage: dev
   timeout: 10
+  environment:
+    DYNAMODB_TABLE: draftees
 
 custom:
   dynamodb:
@@ -20,13 +22,18 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
-      seed: false
+      seed: true
     migration:
       dir: offline/migrations
+    seed:
+      dev:
+        sources:
+          - table: draftees
+            sources: [./offline/seeds/draftees.json]
 
 resources:
   Resources:
-    MyTable:
+    draftees:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
@@ -38,7 +45,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: my-table
+        TableName: draftees
 
 functions:
   createItem:

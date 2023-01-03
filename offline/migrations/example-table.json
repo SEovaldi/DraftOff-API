@@ -1,6 +1,6 @@
 {
   "Table": {
-    "TableName": "my-table",
+    "TableName": "draftees",
     "KeySchema": [
       {
         "AttributeName": "id",
